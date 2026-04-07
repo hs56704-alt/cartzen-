@@ -1,10 +1,14 @@
 import React from 'react'
+import Container from './Container'
 
 const Footer = () => {
   return (
-    <div>
+    <footer>
+      <Container>
       <p className="p-4 text-center">© 2023 Cartzen Ecommerce Project. All rights reserved.</p>
-    </div>
+      </Container>
+    </footer>
+    
   )
 }
 
