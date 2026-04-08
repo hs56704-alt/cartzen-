@@ -4,7 +4,7 @@ import React from 'react'
 const MobileMenu = () => {
   return (
     <div>
-        <AlignLeft className='hover:'/>
+        <AlignLeft className='hover:text-darkColor hoverEffect md:hidden'/>
     </div>
   )
 }

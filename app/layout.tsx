@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -33,9 +34,11 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
       <body className="min-h-full flex flex-col">
+        <ClerkProvider>
         <Header />
         {children}
         <Footer />
+        </ClerkProvider>
       </body>
     </html>
   );
