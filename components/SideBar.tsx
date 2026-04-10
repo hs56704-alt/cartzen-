@@ -1,6 +1,12 @@
 import React, { FC } from 'react'
 import { motion } from "motion/react"
 import Logo from './Logo';
+import Image from 'next/image';
+import { X } from 'lucide-react';
+import { headerData } from '@/constants';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import SocialMedia from './SocialMedia';
 
 
 interface SidebarProps{
@@ -8,23 +14,40 @@ interface SidebarProps{
     onClose: () => void;
 }
 
-const SideBar: FC<SidebarProps> = ({ isOpen, onClose }) => {
+const SideBar: FC<SidebarProps> = ({ isOpen, onClose }) =>{
+  const pathname = usePathname();
   return (
-    <div className='fixed inset-y-0 left-0 z-50 bg-darkColor/50 shadow-xl howerEffect w-full'>
-      <motion.div>
-        <div className='min-w-72 max-w-96 bg-darkColor text-white/90 h-full p-10 border-r border-r-white>
-            <Logo>
-            <img
+    <div className={`fixed inset-y-0 left-0 z-50 bg-darkColor/50 shadow-xl hoverEffect w-full ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out`}>
+      
+        < motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition ={{duration:0.4,delay:0.3 }}className='min-w-72 max-w-96 bg-darkColor text-white/70 h-full p-10 border-r border-r-white flex flex-col gap-6'>
+          <div className='flex items-center justify-between '>
+            <button onClick={onClose}>
+            <Logo >
+            <Image
               src="/logo.png"
               alt="Cartzen Logo"
               width={130}
               height={120}
               priority
-              
+              style={{ width: '130px', height: '30px' }}
             />
             </Logo>
-        </div>
-      </motion.div>
+            </button>
+            <button className='hover:text-red-500 hoverEffect cursor-pointer' onClick={onClose}>
+              <X />
+            </button>
+          </div>
+          <div className="flex flex-col gap-3.5 text-base font-semibold tracking-wide">
+            {headerData?.map((item) => (
+              <Link 
+              onClick={onClose}
+              key={item?.href} href={item?.href} className={`hover:text-white hoverEffect ${pathname === item?.href && "text-white"}`}>
+              {item?.title}
+              </Link>
+            ))}
+          </div>
+        <SocialMedia />
+        </motion.div>
     </div>
   )
 }
